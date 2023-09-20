@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, ProgressBarAndroidComponent, StyleSheet, Text, View } from 'react-native';
+import { Button, ProgressBarAndroidComponent, StyleSheet, Text, View,
+TouchableOpacity, 
+Image} from 'react-native';
 import { TextInput } from 'react-native-web';
 
 export default function App() {
@@ -14,29 +16,31 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={{
-          padding: 16,
-          marginTop: 50,
-          border: '1px solid black'
-        }}
-        onChangeText={setLogin}
-        value={login}
-        placeholder={'login'}
+      <Image
+        source={require('./assets/logo.png')}
+        style={{height: 70, width: 150, marginBottom: 32}}
       />
 
-      <TextInput
-        style={{
-          padding: 16,
-          marginTop: 50,
-          border: '1px solid black',
-          marginBottom: 20
-        }}
-        secureTextEntry={true}
-        onChangeText={setSenha}
-        value={senha}
-        placeholder={'senha'}
-      />
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Login</Text>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={setLogin}
+          value={login}
+          placeholder={'fulano@email.com'}
+        />
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Senha</Text>
+        <TextInput
+          style={styles.textInput}
+          secureTextEntry={true}
+          onChangeText={setSenha}
+          value={senha}
+          placeholder={'******'}
+        />
+      </View>
 
       { sucesso && (
         <Text
@@ -46,13 +50,13 @@ export default function App() {
         >Login efetuado com sucesso!!</Text>
       )}
 
-      <Button
+      <TouchableOpacity
+        style={styles.buttonPrimary}
         onPress={handleSubmit}
         title='login'
-        style={{
-          marginTop: 20
-        }}
-      />
+      >
+        <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -60,8 +64,32 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#353535',
+    color: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  inputContainer: {
+    marginBottom: '30px',
+  },
+  textInput: {
+    border: '1px solid white',
+    color: '#fff',
+    padding: 16,
+    borderRadius: 7,
+  },
+  inputLabel: {
+    color: '#fff',
+    marginBottom: 8,
+  },
+  buttonPrimary: {
+    backgroundColor: '#353535',
+    border: 'solid 1px #F0865B',
+    borderRadius: 7,
+    paddingVertical: 10, 
+    paddingHorizontal: 20, 
+  },
+  buttonText: {
+    color: '#F0865B',
+  }
 });
